@@ -11,9 +11,9 @@ public class DirectApp {
         // Publish some message
         producer.send(Constant.DIRECT_EXCHANGE_NAME , "Hello World!!!!" , Constant.ROUTING_KEY_DIRECT_NAME);
 
-        // Create consumers, queues and binding queues to Direct Exchange
-        DirectExchangeConsumer consumer = new DirectExchangeConsumer();
-        consumer.start();
-        consumer.subscribe();
+//        // Create consumers, queues and binding queues to Direct Exchange
+//        DirectExchangeConsumer consumer = new DirectExchangeConsumer();
+//        consumer.start();
+//        consumer.subscribe();
     }
 }

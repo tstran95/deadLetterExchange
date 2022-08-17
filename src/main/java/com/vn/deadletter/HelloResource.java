@@ -1,33 +1,38 @@
 package com.vn.deadletter;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import com.google.gson.Gson;
+
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.Objects;
 import java.util.UUID;
 
 @Path("/app")
 public class HelloResource {
     @GET
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public String publish() {
-        String message = "Hello World";
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    public String publish(Product product) {
+        if (Objects.isNull(product)) {
+            return "Please fill all input";
+        }
+        Gson gson = new Gson();
+        String prodString = gson.toJson(product);
         try {
             DirectExchangeProducer producer = new DirectExchangeProducer();
             producer.start();
 
             // Publish some message
-            producer.send(Constant.DIRECT_EXCHANGE_NAME , "Hello World!!!!" , Constant.ROUTING_KEY_DIRECT_NAME);
+            producer.send(Constant.DIRECT_EXCHANGE_NAME , prodString , Constant.ROUTING_KEY_DIRECT_NAME);
         }catch (Exception e) {
             e.printStackTrace();
         }
-        return message;
+        return prodString;
     }
 
     @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public String subscribe() {
         try {
             // Create consumers, queues and binding queues to Direct Exchange

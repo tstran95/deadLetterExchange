@@ -1,5 +1,6 @@
 package com.vn.deadletter;
 
+import com.google.gson.Gson;
 import com.rabbitmq.client.BuiltinExchangeType;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
@@ -69,10 +70,12 @@ public class ExchangeChannel {
     }
 
     public void subscribeMessage(String queueName) throws IOException {
+        Gson gson = new Gson();
         // basicConsume - ( queue, autoAck, deliverCallback, cancelCallback)
         channel.basicConsume(queueName, true, ((consumerTag, message) -> {
-            System.out.println("[" + LocalDateTime.now() + "] [Received] [" + queueName + "]: " + new String(message.getBody()));
-            System.out.println("[Received] [" + queueName + "]: " + consumerTag + " with message: " + new String(message.getBody()));
+            Product product = gson.fromJson(new String(message.getBody()) , Product.class);
+            System.out.println("[" + LocalDateTime.now() + "] [Received] [" + queueName + "]: " + product.toString());
+            System.out.println("[Received] [" + queueName + "]: " + consumerTag + " with message: " + product.toString());
         }), System.out::println);
     }
 
