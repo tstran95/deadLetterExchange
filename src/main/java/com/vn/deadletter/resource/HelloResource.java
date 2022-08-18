@@ -20,7 +20,7 @@ public class HelloResource {
     public String publish(Product product) {
         log.info("HelloResource method publish() START with request : {}" , product);
         if (Objects.isNull(product)) {
-            log.info("HelloResource method publish() ERROR with message : Request is null");
+            log.error("HelloResource method publish() ERROR with message : Request is null");
             return "Please fill all input";
         }
         Gson gson = new Gson();

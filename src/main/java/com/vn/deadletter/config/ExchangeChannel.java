@@ -6,12 +6,13 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.vn.deadletter.constant.Constant;
 import com.vn.deadletter.model.Product;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
-
+@Slf4j
 public class ExchangeChannel {
     public Channel channel;
 
@@ -73,15 +74,13 @@ public class ExchangeChannel {
         // basicConsume - ( queue, autoAck, deliverCallback, cancelCallback)
         channel.basicConsume(queueName, true, ((consumerTag, message) -> {
             Product product = gson.fromJson(new String(message.getBody()) , Product.class);
-            System.err.println("[" + LocalDateTime.now() + "] [Received] [" + queueName + "]: " + product.toString());
-            System.out.println("[Received] [" + queueName + "]: " + consumerTag + " with message: " + product);
+            log.info("method subscribeMessage()  [Received] [" + queueName + "]: " + consumerTag + " with message: " + product);
         }), System.out::println);
     }
 
     public void publishMessage(String exchangeName, String message, String routingKey) throws IOException {
-        System.err.println("[" + LocalDateTime.now() + "] [Send] [" + exchangeName + "]: " + message);
         // basicPublish - ( exchange, routingKey, basicProperties, body)
-        System.out.println("[Send] [" + routingKey + "]: " + message);
         channel.basicPublish(exchangeName, routingKey, null, message.getBytes());
+        log.info("method publishMessage()  [Send] [" + routingKey + "]: " + message);
     }
 }
