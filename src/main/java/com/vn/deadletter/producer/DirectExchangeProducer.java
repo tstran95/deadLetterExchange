@@ -5,16 +5,19 @@ import com.rabbitmq.client.Connection;
 import com.vn.deadletter.config.ConnectionManager;
 import com.vn.deadletter.constant.Constant;
 import com.vn.deadletter.config.ExchangeChannel;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
+@Slf4j
 public class DirectExchangeProducer {
     private ExchangeChannel channel;
 
     private Connection connection;
 
     public void start() throws IOException, TimeoutException {
+        log.info("DirectExchangeProducer method start() START");
         // Create connection
         connection = ConnectionManager.createConnection();
 
@@ -34,14 +37,13 @@ public class DirectExchangeProducer {
         channel.performQueueBinding(Constant.DEAD_LETTER_EXCHANGE_NAME,
                                     Constant.DEAD_LETTER_QUEUE_NAME,
                                     Constant.ROUTING_KEY_DEAD_LETTER_NAME);
+        log.info("DirectExchangeProducer method start() END");
     }
 
     public void send(String exchangeName, String message, String messageKey) throws IOException, TimeoutException {
+        log.info("DirectExchangeProducer method send() START");
         // Send message
         channel.publishMessage(exchangeName, message, messageKey);
-    }
-
-    public void close() throws IOException, TimeoutException {
-        connection.close();
+        log.info("DirectExchangeProducer method send() END");
     }
 }

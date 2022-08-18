@@ -75,20 +75,15 @@ public class ExchangeChannel {
         // basicConsume - ( queue, autoAck, deliverCallback, cancelCallback)
         channel.basicConsume(queueName, true, ((consumerTag, message) -> {
             Product product = gson.fromJson(new String(message.getBody()) , Product.class);
-            System.out.println("[" + LocalDateTime.now() + "] [Received] [" + queueName + "]: " + product.toString());
-            System.out.println("[Received] [" + queueName + "]: " + consumerTag + " with message: " + product.toString());
+            System.err.println("[" + LocalDateTime.now() + "] [Received] [" + queueName + "]: " + product.toString());
+            System.out.println("[Received] [" + queueName + "]: " + consumerTag + " with message: " + product);
         }), System.out::println);
     }
 
     public void publishMessage(String exchangeName, String message, String routingKey) throws IOException {
-        System.out.println("[" + LocalDateTime.now() + "] [Send] [" + exchangeName + "]: " + message);
+        System.err.println("[" + LocalDateTime.now() + "] [Send] [" + exchangeName + "]: " + message);
         // basicPublish - ( exchange, routingKey, basicProperties, body)
         System.out.println("[Send] [" + routingKey + "]: " + message);
         channel.basicPublish(exchangeName, routingKey, null, message.getBytes());
     }
-
-//    public void close() throws IOException, TimeoutException {
-//        connection.close();
-//        channel.close();
-//    }
 }
