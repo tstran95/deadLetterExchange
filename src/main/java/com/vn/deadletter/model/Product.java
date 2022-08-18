@@ -1,4 +1,4 @@
-package com.vn.deadletter;
+package com.vn.deadletter.model;
 
 import javax.xml.bind.annotation.XmlRootElement;
 

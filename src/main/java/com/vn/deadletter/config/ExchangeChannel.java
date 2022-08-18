@@ -1,15 +1,16 @@
-package com.vn.deadletter;
+package com.vn.deadletter.config;
 
 import com.google.gson.Gson;
 import com.rabbitmq.client.BuiltinExchangeType;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
+import com.vn.deadletter.constant.Constant;
+import com.vn.deadletter.model.Product;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeoutException;
 
 public class ExchangeChannel {
     public Channel channel;

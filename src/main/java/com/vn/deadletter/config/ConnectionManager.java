@@ -1,4 +1,4 @@
-package com.vn.deadletter;
+package com.vn.deadletter.config;
 
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;

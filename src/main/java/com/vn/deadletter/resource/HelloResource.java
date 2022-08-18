@@ -1,11 +1,14 @@
-package com.vn.deadletter;
+package com.vn.deadletter.resource;
 
 import com.google.gson.Gson;
+import com.vn.deadletter.constant.Constant;
+import com.vn.deadletter.consumer.DirectExchangeConsumer;
+import com.vn.deadletter.producer.DirectExchangeProducer;
+import com.vn.deadletter.model.Product;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.Objects;
-import java.util.UUID;
 
 @Path("/app")
 public class HelloResource {

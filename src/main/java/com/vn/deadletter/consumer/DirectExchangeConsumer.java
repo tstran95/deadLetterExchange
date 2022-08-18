@@ -1,7 +1,10 @@
-package com.vn.deadletter;
+package com.vn.deadletter.consumer;
 
 import com.rabbitmq.client.BuiltinExchangeType;
 import com.rabbitmq.client.Connection;
+import com.vn.deadletter.config.ConnectionManager;
+import com.vn.deadletter.constant.Constant;
+import com.vn.deadletter.config.ExchangeChannel;
 
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;

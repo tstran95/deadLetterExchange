@@ -1,4 +1,4 @@
-package com.vn.deadletter;
+package com.vn.deadletter.constant;
 
 public class Constant {
     public static final int RETRY_DELAY = 3000;
