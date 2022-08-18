@@ -14,12 +14,10 @@ import java.util.concurrent.TimeoutException;
 public class DirectExchangeProducer {
     private ExchangeChannel channel;
 
-    private Connection connection;
-
     public void start() throws IOException, TimeoutException {
         log.info("DirectExchangeProducer method start() START");
         // Create connection
-        connection = ConnectionManager.createConnection();
+        Connection connection = ConnectionManager.createConnection();
 
         // Create channel
         channel = new ExchangeChannel(connection);
@@ -40,7 +38,7 @@ public class DirectExchangeProducer {
         log.info("DirectExchangeProducer method start() END");
     }
 
-    public void send(String exchangeName, String message, String messageKey) throws IOException, TimeoutException {
+    public void send(String exchangeName, String message, String messageKey) throws IOException {
         log.info("DirectExchangeProducer method send() START");
         // Send message
         channel.publishMessage(exchangeName, message, messageKey);

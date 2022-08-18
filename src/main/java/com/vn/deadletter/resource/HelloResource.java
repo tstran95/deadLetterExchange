@@ -35,7 +35,7 @@ public class HelloResource {
             log.info("HelloResource method publish() ERROR with message : ", e);
             return null;
         }
-        log.info("HelloResource method publish() START with response : {}" , prodString);
+        log.info("HelloResource method publish() END with response : {}" , prodString);
         return prodString;
     }
 

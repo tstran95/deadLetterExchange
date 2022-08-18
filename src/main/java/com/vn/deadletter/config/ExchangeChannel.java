@@ -14,10 +14,8 @@ import java.util.Map;
 
 public class ExchangeChannel {
     public Channel channel;
-    private Connection connection;
 
     public ExchangeChannel(Connection connection) throws IOException {
-        this.connection = connection;
         this.channel = connection.createChannel();
     }
 
@@ -50,15 +48,15 @@ public class ExchangeChannel {
     public void declareQueuesDeadLetter(String ...queueNames) throws IOException {
         for (String queueName : queueNames) {
             // create the dead letter queue
-            Map<String, Object> arg = new HashMap<String, Object>();
+            Map<String, Object> arg = new HashMap<>();
             arg.put("x-delayed-type", "direct");
-            channel.queueDeclare("retryQueue", true, false, false, arg);
+            channel.queueDeclare(queueName, true, false, false, arg);
         }
     }
 
     public void declareQueuesWithTTL(String ...queueNames) throws IOException {
         for (String queueName : queueNames) {
-            Map<String, Object> args = new HashMap<String, Object>();
+            Map<String, Object> args = new HashMap<>();
             args.put("x-message-ttl", 6_000);
             // queueDeclare  - (queueName, durable, exclusive, autoDelete, arguments)
             channel.queueDeclare(queueName, true, false, false, args);

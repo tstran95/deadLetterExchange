@@ -1,6 +1,7 @@
 package com.vn.deadletter.constant;
 
 public class Constant {
+    public static final String HOST = "localhost";
     public static final int RETRY_DELAY = 3000;
     public static final String QUEUE_NAME = "mainQueue";
     public static final String DEAD_LETTER_EXCHANGE_NAME = "DeadLetterExchange";
