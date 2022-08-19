@@ -25,7 +25,7 @@ public class DirectExchangeConsumer {
         channel.declareExchange(BuiltinExchangeType.DIRECT , Constant.DEAD_LETTER_EXCHANGE_NAME);
 
         // Create queues
-        channel.declareQueuesDeadLetter(Constant.DEAD_LETTER_QUEUE_NAME);
+        channel.declareQueues(Constant.DEAD_LETTER_QUEUE_NAME);
 
         // Binding queues
         channel.performQueueBinding(Constant.DEAD_LETTER_EXCHANGE_NAME,

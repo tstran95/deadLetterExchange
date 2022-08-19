@@ -26,7 +26,7 @@ public class DirectExchangeProducer {
         channel.declareExchange(BuiltinExchangeType.DIRECT , Constant.DIRECT_EXCHANGE_NAME , Constant.DEAD_LETTER_EXCHANGE_NAME);
         // Create queues
         channel.declareQueuesWithTTLAndDLT(Constant.QUEUE_NAME);
-        channel.declareQueuesDeadLetter(Constant.DEAD_LETTER_QUEUE_NAME);
+        channel.declareQueues(Constant.DEAD_LETTER_QUEUE_NAME);
 
         // Binding queues
         channel.performQueueBinding(Constant.DIRECT_EXCHANGE_NAME,
