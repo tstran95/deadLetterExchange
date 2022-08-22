@@ -13,11 +13,12 @@ import java.util.concurrent.TimeoutException;
 @Slf4j
 public class DirectExchangeProducer {
     private ExchangeChannel channel;
+    private Connection connection;
 
     public void start() throws IOException, TimeoutException {
         log.info("DirectExchangeProducer method start() START");
         // Create connection
-        Connection connection = ConnectionManager.createConnection();
+        connection = ConnectionManager.createConnection();
 
         // Create channel
         channel = new ExchangeChannel(connection);
@@ -43,6 +44,7 @@ public class DirectExchangeProducer {
         // Send message
         channel.publishMessage(exchangeName, message, messageKey);
         channel.close();
+        connection.close();
         log.info("DirectExchangeProducer method send() END");
     }
 }
