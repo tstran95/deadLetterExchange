@@ -38,10 +38,11 @@ public class DirectExchangeProducer {
         log.info("DirectExchangeProducer method start() END");
     }
 
-    public void send(String exchangeName, String message, String messageKey) throws IOException {
+    public void send(String exchangeName, String message, String messageKey) throws IOException, TimeoutException {
         log.info("DirectExchangeProducer method send() START");
         // Send message
         channel.publishMessage(exchangeName, message, messageKey);
+        channel.close();
         log.info("DirectExchangeProducer method send() END");
     }
 }

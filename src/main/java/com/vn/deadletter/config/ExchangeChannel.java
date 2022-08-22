@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeoutException;
+
 @Slf4j
 public class ExchangeChannel {
     public Channel channel;
@@ -82,5 +84,9 @@ public class ExchangeChannel {
         // basicPublish - ( exchange, routingKey, basicProperties, body)
         channel.basicPublish(exchangeName, routingKey, null, message.getBytes());
         log.info("method publishMessage()  [Send] [" + routingKey + "]: " + message);
+    }
+
+    public void close() throws IOException, TimeoutException {
+        channel.close();
     }
 }
