@@ -12,11 +12,12 @@ import java.util.concurrent.TimeoutException;
 @Slf4j
 public class DirectExchangeConsumer {
     private ExchangeChannel channel;
+    private Connection connection;
 
     public void start() throws IOException, TimeoutException {
         log.info("DirectExchangeConsumer method start() START");
         // Create connection
-        Connection connection = ConnectionManager.createConnection();
+        connection = ConnectionManager.createConnection();
 
         // Create channel
         channel = new ExchangeChannel(connection);
@@ -34,10 +35,12 @@ public class DirectExchangeConsumer {
         log.info("DirectExchangeConsumer method start() END");
     }
 
-    public void subscribe() throws IOException {
+    public void subscribe() throws IOException, TimeoutException {
         log.info("DirectExchangeConsumer method subscribe() START");
         // Subscribe message
         channel.subscribeMessage(Constant.DEAD_LETTER_QUEUE_NAME);
+        channel.close();
+        connection.close();
         log.info("DirectExchangeConsumer method subscribe() END");
     }
 }
